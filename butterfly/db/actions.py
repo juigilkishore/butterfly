@@ -14,7 +14,7 @@ def _table_operator(config, action=None):
 
 def initialize_tables(config):
     connection_string = config.get("Database").get("connection")
-    engine = api.get_db_engine(connection_string)
+    api.Table.set_connection_string(connection_string)
     # TODO(juigil): Populate the lesson and goal tables
 
 

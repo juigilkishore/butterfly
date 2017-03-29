@@ -8,31 +8,42 @@ def get_db_engine(connection_string):
 
 
 def get_db_session(engine):
-    Session = sessionmaker(bind=engine)
-    session = Session(autocommit=False, expire_on_commit=True)
+    session_maker = sessionmaker(bind=engine)
+    session = session_maker(autocommit=False, expire_on_commit=True)
     return session
 
 
 class Table(object):
     """Base Class for DB APIs"""
+
+    CONNECTION_STRING = None
+
     @classmethod
-    def get_all(cls, engine):
+    def set_connection_string(cls, connection_string):
+        cls.CONNECTION_STRING = connection_string
+
+    @classmethod
+    def get_connection_string(cls):
+        return cls.CONNECTION_STRING
+
+    @classmethod
+    def get_all(cls):
         raise NotImplemented
 
     @classmethod
-    def get(cls, engine, id_, **kwargs):
+    def get(cls, id_, **kwargs):
         raise NotImplemented
 
     @classmethod
-    def create(cls, engine, **kwargs):
+    def create(cls, **kwargs):
         raise NotImplemented
 
     @classmethod
-    def update(cls, engine, id_, **kwargs):
+    def update(cls, id_, **kwargs):
         raise NotImplemented
 
     @classmethod
-    def delete(cls, engine, id_, **kwargs):
+    def delete(cls, id_, **kwargs):
         raise NotImplemented
 
     @staticmethod
