@@ -2,7 +2,7 @@ import argparse
 import os
 
 import parser as conf_parser
-from butterfly.db import actions
+from butterfly.db import actions as db_actions
 
 DB_INIT = "db_init"
 DB_DROP = "db_drop"
@@ -24,9 +24,9 @@ config = conf_parser.parser(config_path)
 
 def main():
     if ACTION == DB_INIT:
-        actions.register_tables(config)
+        db_actions.register_tables(config)
     elif ACTION == DB_DROP:
-        actions.unregister_tables(config)
+        db_actions.unregister_tables(config)
     elif ACTION == RUN:
         pass
     else:

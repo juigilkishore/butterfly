@@ -1,11 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Text, Integer, DateTime, Boolean, BLOB
 from sqlalchemy import ForeignKey, PrimaryKeyConstraint
-# from utils import get_uuid
-from uuid import uuid4
 
-def get_uuid():
-    return str(uuid4())
+from butterfly.utils import get_uuid
 
 Base = declarative_base()
 
@@ -17,7 +14,7 @@ class User(Base):
     age = Column(Integer, nullable=False)
     gender = Column(String(10), nullable=False)
     email = Column(String(24))
-    phone = Column(Integer)
+    phone = Column(String(16))
 
 
 class Lesson(Base):

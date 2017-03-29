@@ -1,4 +1,2 @@
-# Dependencies
-
 mysql-server
 libmysqlclient-dev

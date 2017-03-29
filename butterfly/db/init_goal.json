@@ -1,1 +1,38 @@
-{}
+[
+  {
+    "name": "Walk",
+    "description": "Walk for 15 minutes for at least 3 days",
+	"reason": null,
+    "week": 1,
+	"count": 3,
+    "effects": {
+				  "calories_burnt": 75,
+				  "healthy_calories_consumed": null,
+				  "unhealthy_calories_avoided": null
+			   }
+  },
+  {
+    "name": "No Refined Flour Foods",
+    "description": "Don't consume refined flour or maida foods for 2 days this week",
+	"reason": null,
+    "week": 1,
+	"count": 2,
+    "effects": {
+				  "calories_burnt": null,
+				  "healthy_calories_consumed": null,
+				  "unhealthy_calories_avoided": 250
+			   }
+  },
+  {
+    "name": "Walk",
+    "description": "Walk for 30 minutes for at least 3 days",
+	"reason": null,
+    "week": 2,
+	"count": 3,
+    "effects": {
+				  "calories_burnt": 150,
+				  "healthy_calories_consumed": null,
+				  "unhealthy_calories_avoided": null
+			   }
+  }
+]

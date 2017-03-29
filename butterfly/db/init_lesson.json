@@ -1,1 +1,50 @@
-{}
+[
+  {
+    "name": "Insulin & Diabetes",
+    "content": "Diabetes occurs when the body does not either produce enough insulin or when the body does use the insulin it produces effectively. But what is insulin? Insulin is a hormone secreted by pancreas. It allows you to use glucose from carbohydrates or to store glucose for future use.Insulin keeps the blood sugar levels in balance. As blood sugar levels rise, the pancreas secretes more insulin. When the sugar level in blood is high, insulin attaches and signals to the cells to absorb sugar from the bloodstream. When it is low, insulin signals to the cell.The most common problem associated with insulin is diabetes. Diabetes occurs when the body does not either produce enough insulin or when the body does use the insulin it produces effectively. There are 2 types of diabetes: Type 1 and Type 2. Type 1 diabetes occurs when the pancreas cannot produce enough insulin. Type 2 diabetes is mostly associated with lifestyle choices.",
+    "week": 1,
+    "number": 1
+  },
+  {
+    "name": "Type 2 Diabetes",
+    "content": "Type 2 diabetic patients do not make enough insulin or insulin they make does not work effectively. As a result, glucose builds up in the blood. When the blood sugar level is constantly higher, the condition is called hyperglycemia. Hyperglycemia can cause damage to blood vessels that supply blood to vital organs. This can increase the risk of heart disease and stroke. Type 2 diabetes can be hereditary i.e. if your parents have type 2 diabetes, you have a greater chance of developing it. But unhealthy food and lack of physical activity are considered to be important causes of type 2 diabetes. We will learn more about the lifestyle choices in the later stages of the program. World Health Organization says that 70-80% of the diabetes can be prevented through changes in lifestyle choices.",
+    "week": 1,
+    "number": 2
+  },
+  {
+    "name": "Getting Active",
+    "content": "Lack of physical activity is one of the most important causes of diabetes, heart disease and many other chronic diseases. Studies have shown that spending at least 150 minutes on physical activity every week reduces the risk for diabetes and heart disease. Lack of exercise can cause muscle cells to lose their sensitivity to insulin, which controls blood sugar level. If you are not physically active, walking is a great place to start with. In the later stages, you will learn about high intensity, short duration workouts, sprinting, lifting weights, etc. You will also learn what research studies say about physical activity and diabetes.",
+    "week": 1,
+    "number": 3
+  },
+  {
+    "name": "Calories",
+    "content": "It is important to understand certain terminologies. Throughout the program, there will be a few lessons dedicated to these terminologies. Calories is one such terminology. You can skip this lesson if you already know what calorie means. A calorie is a measure of energy. We get calories from the things we eat and drink. We use or burn calories through activity. 1 gram of carbohydrates contains 4 calories. 1 gram of protein contains 4 calories. 1 gram of fat contains 9 calories. Let's take an example. A cup of milk contains 12 grams of carbohydrates, 8 grams of protein and 8 grams of fat. So it contains 152 calories (12 x 4 + 8 x 4 + 8 x 9 = 152). We burn calories through physical activity. Walking at moderate pace for an hour burns around 50 - 100 calories based on your weight.",
+    "week": 1,
+    "number": 4
+  },
+  {
+    "name": "Eating Healthy",
+    "content": "Eating healthy is important for a healthy life. It will not covered in a series of lessons. On week 1, let's learn about refined and unrefined carbohydrates, and their effects on blood sugar. In the subsequent weeks, you will find lessons on fatty foods, high sugar foods, high fibre foods and others.",
+    "week": 1,
+    "number": 5
+  },
+  {
+    "name": "Refined Carbohydrates",
+    "content": "Common carbohydrate-rich foods are rice, roti, breads, pasta, noodles, etc. There are unrefined and refined carbohydrates. What are the characteristics of refined carbohydrates? Refined carbohydrates are processed carbohydrates. They are low in fibre, vitamins, and minerals. The glycemic index of refined carbohydrates is high. Polished rice, maida, white bread, noodles, pasta, etc. are some of the refined carbohydrates which are consumed widely. High glycemic index of refined carbohydrates causes a quick raise in blood sugar. Chronic consumption of refined carbohydrates causes insulin resistance which in turn may lead to diabetes. Check the food label for any packed food that you buy. The most common name used is refined flour.",
+    "week": 1,
+    "number": 6
+  },
+  {
+    "name": "Glycemic Index",
+    "content": "The glycemic index (GI) of a food indicates the food's effect on the blood sugar level.The GI represents the rise in blood sugar level two hours after consumption of the food. White rice, white bread, sugar and soft drinks are some of the high GI foods. These foods increase your blood sugar level quickly. Most vegetables, whole grains, and fruits have low GI. Unlike high GI foods, these foods release the sugar slowly into the blood. Since constant high blood sugar increases diabetes risk, it is not advisable to consume high GI diet regularly.",
+    "week": 1,
+    "number": 7
+  },
+  {
+    "name": "List of Refined Flour Foods",
+    "content": "Maida or refined flour is one of the most widely available refined carbohydrates.Breakfast cerealsChaat food items Indian breads like parotta / kulcha / naan / puri Noodles Pasta White bread-based foods like burger / pizza / sandwich Unless these foods are made out of whole grains, their consumption should be reduced. For a complete list search 'Maida Foods' in google.",
+    "week": 1,
+    "number": 8
+  }
+]

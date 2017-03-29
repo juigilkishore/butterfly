@@ -1,4 +1,4 @@
-import api
+from api import api
 from schema import User, Lesson, Goal, ActivityLesson, ActivityGoal
 
 
@@ -12,13 +12,16 @@ def _table_operator(config, action=None):
         _table_action(engine)
 
 
+def initialize_tables(config):
+    connection_string = config.get("Database").get("connection")
+    engine = api.get_db_engine(connection_string)
+    # TODO(juigil): Populate the lesson and goal tables
+
+
 def register_tables(config):
     _table_operator(config, action="create_all")
+    initialize_tables(config)
 
 
 def unregister_tables(config):
     _table_operator(config, action="drop_all")
-
-
-def initialize_tables():
-    pass
