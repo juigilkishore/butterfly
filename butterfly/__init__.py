@@ -1,0 +1,3 @@
+"""
+Butterfly main module
+"""
