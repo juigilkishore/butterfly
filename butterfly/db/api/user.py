@@ -1,4 +1,4 @@
-import copy
+from copy import deepcopy
 
 from api import get_db_engine, get_db_session, Table
 from butterfly.db import schema
@@ -6,9 +6,12 @@ from butterfly.db import schema
 
 class User(Table):
     @classmethod
-    def get_all(cls):
+    def get_all(cls, **_filter):
         """Get all user rows in 'user' table
 
+        :param _filter: 'AND' filter dictionary
+            {'gender': 'male',
+             'age': 25L}
         :return: List of user details
             [{'name': 'testuser',
               'gender': 'male',
@@ -21,15 +24,15 @@ class User(Table):
         session = get_db_session(engine)
         user_list = list()
         try:
-
-            for user in session.query(schema.User).all():
+            user_obj_list = (session.query(schema.User).filter_by(**_filter).all()
+                             if _filter else session.query(schema.User).all())
+            for user in user_obj_list:
                 user_list.append(cls.row_object_to_dict(user))
-            user_list = copy.deepcopy(user_list)
+            user_list = deepcopy(user_list)
             session.commit()
         except Exception as e:
-            print "Exception Occurred during GET ALL query: %s" % e
+            print "Exception occurred during querying (GET ALL) the user table: %s" % e
             session.rollback()
-            raise e
         finally:
             session.close()
         return user_list
@@ -61,12 +64,11 @@ class User(Table):
             user_obj = (session.query(schema.User).filter_by(id=user_id).one()
                         if user_id else
                         session.query(schema.User).filter_by(**_filter).one())
-            user = copy.deepcopy(cls.row_object_to_dict(user_obj))
+            user = deepcopy(cls.row_object_to_dict(user_obj))
             session.commit()
         except Exception as e:
-            print "Exception Occurred during GET query: %s" % e
+            print "Exception occurred during querying (GET) the user table: %s" % e
             session.rollback()
-            raise e
         finally:
             session.close()
         return user
@@ -85,23 +87,21 @@ class User(Table):
         """
         engine = get_db_engine(cls.CONNECTION_STRING)
         session = get_db_session(engine)
-        created = None
+        created = True
         try:
             session.add(schema.User(**values))
             session.commit()
-            created = True
         except Exception as e:
-            print "Exception Occurred during INSERT query: %s" % e
+            print "Exception occurred during querying (INSERT) the user table: %s" % e
             session.rollback()
             created = False
-            raise e
         finally:
             session.close()
-            return created
+        return created
 
     @classmethod
     def update(cls, user_id, **values):
-        """Update the user row in 'user' table
+        """Update a single user row in 'user' table
 
         :param user_id: user ID (mandatory argument)
         :param values: user payload to be updated
@@ -113,22 +113,20 @@ class User(Table):
         """
         engine = get_db_engine(cls.CONNECTION_STRING)
         session = get_db_session(engine)
-        updated = None
+        updated = True
         try:
             if not user_id:
                 raise Exception("user ID is required for update operation")
             user_obj = session.query(schema.User).filter_by(id=user_id).one()
             [setattr(user_obj, attr, new_val) for attr, new_val in values.iteritems()]
             session.commit()
-            updated = True
         except Exception as e:
-            print "Exception Occurred during UPDATE query %s" % e
+            print "Exception occurred during querying (UPDATE) the user table: %s" % e
             session.rollback()
             updated = False
-            raise e
         finally:
             session.close()
-            return updated
+        return updated
 
     @classmethod
     def delete(cls, user_id, **_filter):
@@ -146,19 +144,17 @@ class User(Table):
         """
         engine = get_db_engine(cls.CONNECTION_STRING)
         session = get_db_session(engine)
-        deleted = None
+        deleted = True
         try:
             user_obj = (session.query(schema.User).filter_by(id=user_id).one()
                         if user_id else
                         session.query(schema.User).filter_by(**_filter).one())
             session.delete(user_obj)
             session.commit()
-            deleted = True
         except Exception as e:
-            print "Exception Occurred during DELETE query %s" % e
+            print "Exception occurred during querying (DELETE) the user table: %s" % e
             session.rollback()
             deleted = False
-            raise e
         finally:
             session.close()
-            return deleted
+        return deleted

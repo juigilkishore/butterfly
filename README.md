@@ -26,7 +26,7 @@ mysql> GRANT ALL PRIVILEGES ON butterfly.* TO 'butterflyuser'@'localhost' IDENTI
 mysql> GRANT ALL PRIVILEGES ON butterfly.* TO 'butterflyuser'@'%' IDENTIFIED BY 'butterflypass';
 
 mysql -ubutterflyuser -pbutterflypass
-mysql> USE butterfly
+mysql> USE butterfly;
 ```
 
 Edit Configuration

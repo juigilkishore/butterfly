@@ -27,7 +27,7 @@ class Table(object):
         return cls.CONNECTION_STRING
 
     @classmethod
-    def get_all(cls):
+    def get_all(cls, **kwargs):
         raise NotImplemented
 
     @classmethod
