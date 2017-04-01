@@ -10,27 +10,27 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "user"
     __table_args__ = (UniqueConstraint('email', 'phone'),)
-    id = Column(String(36), primary_key=True, default=get_uuid())
+    id = Column(String(36), primary_key=True, default=get_uuid)
     name = Column(String(24), nullable=False)
     age = Column(Integer, nullable=False)
     # TODO(juigil): Add gender constraint
     gender = Column(String(10), nullable=False)
-    email = Column(String(24), unique=True)
-    phone = Column(String(16))
+    email = Column(String(24), unique=True, nullable=False)
+    phone = Column(String(16), nullable=False)
 
 
 class Lesson(Base):
     __tablename__ = "lesson"
-    id = Column(String(36), primary_key=True, default=get_uuid())
-    name = Column(String(24), nullable=False)
+    id = Column(String(36), primary_key=True, default=get_uuid)
+    name = Column(String(24), nullable=False, unique=True)
     content = Column(Text, nullable=False)
     week = Column(Integer, nullable=False)
-    number = Column(Integer, nullable=False, autoincrement=True)
+    number = Column(Integer, nullable=False, unique=True, autoincrement=True)
 
 
 class Goal(Base):
     __tablename__ = "goal"
-    id = Column(String(36), primary_key=True, default=get_uuid())
+    id = Column(String(36), primary_key=True, default=get_uuid)
     name = Column(String(24), nullable=False)
     description = Column(Text, nullable=False)
     reason = Column(String(36), ForeignKey(Lesson.__tablename__ + ".id"))
@@ -58,4 +58,3 @@ class ActivityGoal(Base):
     last_updated_at = Column(DateTime, nullable=False)
     completed_on = Column(BLOB, nullable=False)
     completed = Column(Boolean, default=False)
-

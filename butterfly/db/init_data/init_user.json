@@ -1,0 +1,17 @@
+[
+  {
+    "name": "admin",
+    "age": 25,
+    "gender": "male",
+    "email": "admin@convex.com",
+    "phone": "8008008001"
+  },
+
+  {
+    "name": "testuser",
+    "age": 35,
+    "gender": "male",
+    "email": "testuser@convex.com",
+    "phone": "8008008002"
+  }
+]

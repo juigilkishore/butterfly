@@ -1,19 +1,18 @@
 from copy import deepcopy
 
-from api import get_db_engine, get_db_session, Table
+from api import Table
 from butterfly.db import schema
 
 
 class Lesson(Table):
     @classmethod
-    def get_all(cls, **_filter):
+    def get_all(cls, connection, **_filter):
         """Get all lesson rows in 'lesson' table
 
         :param _filter:
         :return:
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         lesson_list = list()
         try:
             lesson_obj_list = (session.query(schema.Lesson).filter_by(**_filter).all()
@@ -30,15 +29,14 @@ class Lesson(Table):
         return lesson_list
 
     @classmethod
-    def get(cls, lesson_id, **_filter):
+    def get(cls, connection, lesson_id, **_filter):
         """Get a single lesson row in 'lesson' table
 
         :param lesson_id:
         :param _filter:
         :return:
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         lesson = None
         try:
             lesson_obj = (session.query(schema.Lesson).filter_by(id=lesson_id).one()
@@ -54,14 +52,13 @@ class Lesson(Table):
         return lesson
 
     @classmethod
-    def create(cls, **values):
+    def create(cls, connection, **values):
         """Create a lesson row in 'lesson' table
 
         :param values:
         :return:
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         created = True
         try:
             session.add(schema.Lesson(**values))
@@ -75,15 +72,14 @@ class Lesson(Table):
         return created
 
     @classmethod
-    def update(cls, lesson_id, **values):
+    def update(cls, connection, lesson_id, **values):
         """Update a single lesson row in 'lesson' table
 
         :param lesson_id:
         :param values:
         :return:
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         updated = True
         try:
             if not lesson_id:
@@ -100,15 +96,14 @@ class Lesson(Table):
         return updated
 
     @classmethod
-    def delete(cls, lesson_id, **_filter):
+    def delete(cls, connection, lesson_id, **_filter):
         """Delete a single lesson row in 'lesson' table
 
         :param lesson_id:
         :param _filter:
         :return:
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         deleted = True
         try:
             lesson_obj = (session.query(schema.Lesson).filter_by(id=lesson_id).one()

@@ -1,12 +1,12 @@
 from copy import deepcopy
 
-from api import get_db_engine, get_db_session, Table
+from api import Table
 from butterfly.db import schema
 
 
 class User(Table):
     @classmethod
-    def get_all(cls, **_filter):
+    def get_all(cls, connection, **_filter):
         """Get all user rows in 'user' table
 
         :param _filter: 'AND' filter dictionary
@@ -20,8 +20,7 @@ class User(Table):
               'phone': '9897969594',
               'id': '7d3710b0-802c-40f7-bbf1-a7d6a8e6d02c'}]
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         user_list = list()
         try:
             user_obj_list = (session.query(schema.User).filter_by(**_filter).all()
@@ -38,7 +37,7 @@ class User(Table):
         return user_list
 
     @classmethod
-    def get(cls, user_id, **_filter):
+    def get(cls, connection, user_id, **_filter):
         """Get a single user row in 'user' table
 
         **_filter is ignored id user_id is provided
@@ -57,8 +56,7 @@ class User(Table):
              'phone': '9897969594',
              'id': '7d3710b0-802c-40f7-bbf1-a7d6a8e6d02c'}
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         user = None
         try:
             user_obj = (session.query(schema.User).filter_by(id=user_id).one()
@@ -74,7 +72,7 @@ class User(Table):
         return user
 
     @classmethod
-    def create(cls, **values):
+    def create(cls, connection, **values):
         """Create a user row in 'user' table
 
         :param values: user payload
@@ -85,8 +83,7 @@ class User(Table):
              "phone": str(9897969594)}
         :return: Boolean output
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         created = True
         try:
             session.add(schema.User(**values))
@@ -100,7 +97,7 @@ class User(Table):
         return created
 
     @classmethod
-    def update(cls, user_id, **values):
+    def update(cls, connection, user_id, **values):
         """Update a single user row in 'user' table
 
         :param user_id: user ID (mandatory argument)
@@ -111,8 +108,7 @@ class User(Table):
              "email": "newuser@email.com"}
         :return: Boolean output
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         updated = True
         try:
             if not user_id:
@@ -129,7 +125,7 @@ class User(Table):
         return updated
 
     @classmethod
-    def delete(cls, user_id, **_filter):
+    def delete(cls, connection, user_id, **_filter):
         """Delete a single user row in 'user' table
 
         **_filter is ignored id user_id is provided
@@ -142,8 +138,7 @@ class User(Table):
              'phone': '9897969594'}
         :return: Boolean output
         """
-        engine = get_db_engine(cls.CONNECTION_STRING)
-        session = get_db_session(engine)
+        session = connection.SESSION
         deleted = True
         try:
             user_obj = (session.query(schema.User).filter_by(id=user_id).one()
