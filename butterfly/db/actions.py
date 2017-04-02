@@ -2,6 +2,7 @@ import os
 
 from api import lesson, goal, user
 from api.api import get_db_connection
+from api.constants import NUMBER_KEY, ID_KEY, REASON_KEY
 from butterfly.utils import get_dir_of, load_file
 import constants
 from schema import User, Lesson, Goal, ActivityLesson, ActivityGoal
@@ -18,7 +19,7 @@ def _table_generator(config, action=None):
 
 
 def initialize_tables(config):
-    """Creates the 'lesson', 'goal', default 'user' table.
+    """Populate the 'lesson', 'goal', default 'user' tables. Day-Zero operation
 
     :param config: config object
     :return: None
@@ -30,9 +31,26 @@ def initialize_tables(config):
     goal_contents = load_file(os.path.join(init_data_dir, constants.INIT_GOAL_JSON))
     default_users = load_file(os.path.join(init_data_dir, constants.INIT_USER_JSON))
 
+    def _create_goal(_goal):
+        goal_reason = _goal.get(REASON_KEY)
+        if goal_reason:
+            _goal[REASON_KEY] = lesson_number_mapping.get(goal_reason)
+        goal.Goal.create(connection, **_goal)
+
     [lesson.Lesson.create(connection, **_lesson) for _lesson in lesson_contents]
-    [goal.Goal.create(connection, **_goal) for _goal in goal_contents]
+    lesson_number_mapping = dict([(_lesson.get(NUMBER_KEY), _lesson.get(ID_KEY))
+                                  for _lesson in lesson.Lesson.get_all(connection)])
+    [_create_goal(_goal) for _goal in goal_contents]
     [user.User.create(connection, **_user) for _user in default_users]
+
+
+def update_tables(config):
+    """Update the 'lesson', 'goal', default 'user' tables
+
+    :param config: config object
+    :return:
+    """
+    pass
 
 
 def clean_tables(config):
@@ -47,8 +65,8 @@ def clean_tables(config):
     DEFAULT_USER_LIST = [constants.DEFAULT_ADMIN_USER, constants.DEFAULT_TEST_USER]
 
     [user.User.delete(connection, None, **{"name": _user}) for _user in DEFAULT_USER_LIST]
-    [goal.Goal.delete(connection, _goal.get("id")) for _goal in goal.Goal.get_all(connection)]
-    [lesson.Lesson.delete(connection, _lesson.get("id")) for _lesson in lesson.Lesson.get_all(connection)]
+    [goal.Goal.delete(connection, _goal.get(ID_KEY)) for _goal in goal.Goal.get_all(connection)]
+    [lesson.Lesson.delete(connection, _lesson.get(ID_KEY)) for _lesson in lesson.Lesson.get_all(connection)]
 
 
 def register_tables(config):
@@ -57,5 +75,4 @@ def register_tables(config):
 
 
 def unregister_tables(config):
-    clean_tables(config)
     _table_generator(config, action=constants.DB_DROP_ACTION)

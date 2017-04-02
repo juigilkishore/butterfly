@@ -32,7 +32,7 @@ def main():
     elif ACTION == DB_DROP:
         db_actions.unregister_tables(config)
     elif ACTION == DB_ADD:
-        pass
+        db_actions.update_tables(config)
     elif ACTION == RUN:
         pass
 

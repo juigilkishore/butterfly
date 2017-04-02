@@ -1,3 +1,4 @@
+from datetime import datetime
 from functools import wraps
 import json
 import os
@@ -5,8 +6,12 @@ import os
 from uuid import uuid4
 
 
-def get_uuid():
-    return str(uuid4())
+def get_uuid(bits=8):
+    return str(uuid4())[:bits]
+
+
+def get_utc_time():
+    return datetime.utcnow()
 
 
 def get_dir_of(_file):

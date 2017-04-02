@@ -2,13 +2,15 @@ from copy import deepcopy
 
 from api import Table
 from butterfly.db import schema
+from constants import NAME_KEY, ID_KEY
 
 
 class User(Table):
     @classmethod
     def get_all(cls, connection, **_filter):
-        """Get all user rows in 'user' table
+        """Get all user rows from 'user' table
 
+        :param connection: DB connection object
         :param _filter: 'AND' filter dictionary
             {'gender': 'male',
              'age': 25L}
@@ -38,10 +40,11 @@ class User(Table):
 
     @classmethod
     def get(cls, connection, user_id, **_filter):
-        """Get a single user row in 'user' table
+        """Get a single user row from 'user' table
 
         **_filter is ignored id user_id is provided
 
+        :param connection: DB connection object
         :param user_id: user ID
         :param _filter: 'AND' filter dictionary
             {'gender': 'male',
@@ -72,9 +75,21 @@ class User(Table):
         return user
 
     @classmethod
+    def get_user_id(cls, connection, user_name):
+        """Get user ID for user_name from 'user' table
+
+        :param connection: DB connection object
+        :param user_name: user name
+        :return: user ID
+        """
+        user = cls.get(connection, None, **{NAME_KEY: user_name})
+        return user.get(ID_KEY)
+
+    @classmethod
     def create(cls, connection, **values):
         """Create a user row in 'user' table
 
+        :param connection: DB connection object
         :param values: user payload
             {"name": "testuser",
              "age": 25,
@@ -98,8 +113,9 @@ class User(Table):
 
     @classmethod
     def update(cls, connection, user_id, **values):
-        """Update a single user row in 'user' table
+        """Update a single user row from 'user' table
 
+        :param connection: DB connection object
         :param user_id: user ID (mandatory argument)
         :param values: user payload to be updated
             {"name": "newuser",
@@ -126,10 +142,11 @@ class User(Table):
 
     @classmethod
     def delete(cls, connection, user_id, **_filter):
-        """Delete a single user row in 'user' table
+        """Delete a single user row from 'user' table
 
         **_filter is ignored id user_id is provided
 
+        :param connection: DB connection object
         :param user_id: user ID
         :param _filter: 'AND' filter dictionary
             {'gender': 'male',

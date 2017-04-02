@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Text, Integer, DateTime, Boolean, BLOB
 from sqlalchemy import ForeignKey, PrimaryKeyConstraint, UniqueConstraint
 
-from butterfly.utils import get_uuid
+from butterfly.utils import get_uuid, get_utc_time
 
 Base = declarative_base()
 
@@ -26,6 +26,7 @@ class Lesson(Base):
     content = Column(Text, nullable=False)
     week = Column(Integer, nullable=False)
     number = Column(Integer, nullable=False, unique=True, autoincrement=True)
+    is_active = Column(Boolean, nullable=False, default=True)
 
 
 class Goal(Base):
@@ -37,6 +38,7 @@ class Goal(Base):
     week = Column(Integer, nullable=False)
     count = Column(Integer, nullable=False)
     effects = Column(BLOB, nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True)
 
 
 class ActivityLesson(Base):
@@ -44,7 +46,7 @@ class ActivityLesson(Base):
     __table_args__ = (PrimaryKeyConstraint('user_id', 'lesson_id'),)
     user_id = Column(String(36), ForeignKey(User.__tablename__ + ".id"), nullable=False)
     lesson_id = Column(String(36), ForeignKey(Lesson.__tablename__ + ".id"), nullable=False)
-    opened_at = Column(DateTime, nullable=False)
+    opened_at = Column(DateTime, nullable=False, default=get_utc_time)
     completed = Column(Boolean, nullable=False, default=False)
     completed_at = Column(DateTime, nullable=True)
 
