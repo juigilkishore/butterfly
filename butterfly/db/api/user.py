@@ -30,12 +30,8 @@ class User(Table):
             for user in user_obj_list:
                 user_list.append(cls.row_object_to_dict(user))
             user_list = deepcopy(user_list)
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the user table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return user_list
 
     @classmethod
@@ -66,12 +62,8 @@ class User(Table):
                         if user_id else
                         session.query(schema.User).filter_by(**_filter).one())
             user = deepcopy(cls.row_object_to_dict(user_obj))
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET) the user table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return user
 
     @classmethod

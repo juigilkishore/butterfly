@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from api import Table
 from butterfly.db import schema
-from constants import NAME_KEY, ID_KEY
+from constants import NAME_KEY, ID_KEY, WEEK_KEY, COUNT_KEY
 
 
 class Goal(Table):
@@ -43,12 +43,8 @@ class Goal(Table):
             for goal in goal_obj_list:
                 goal_list.append(cls.row_object_to_dict(goal))
             goal_list = deepcopy(goal_list)
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the goal table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return goal_list
 
     @classmethod
@@ -88,23 +84,20 @@ class Goal(Table):
                         if goal_id else
                         session.query(schema.Goal).filter_by(**_filter).one())
             goal = deepcopy(cls.row_object_to_dict(goal_obj))
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET) the goal table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return goal
 
     @classmethod
-    def get_goal_id(cls, connection, goal_name):
+    def get_goal_id(cls, connection, goal_name, week):
         """Get the goal ID from goal name
 
         :param connection: DB connection object
         :param goal_name: goal name
+        :param week: week number
         :return: goal ID
         """
-        goal = cls.get(connection, None, **{NAME_KEY: goal_name})
+        goal = cls.get(connection, None, **{NAME_KEY: goal_name, WEEK_KEY: week})
         return goal.get(ID_KEY)
 
     @classmethod
@@ -125,12 +118,8 @@ class Goal(Table):
             for goal in goal_obj_list:
                 goal_list.append(cls.row_object_to_dict(goal))
             goal_list = deepcopy(goal_list)
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the goal table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return goal_list
 
     @classmethod

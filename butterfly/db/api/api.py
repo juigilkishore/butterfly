@@ -33,23 +33,23 @@ class Table(object):
     """Base Class for DB APIs"""
 
     @classmethod
-    def get_all(cls, connection, **kwargs):
+    def get_all(cls, connection, **_filter):
         raise NotImplemented
 
     @classmethod
-    def get(cls, connection, id_, **kwargs):
+    def get(cls, connection, id_, **_filter):
         raise NotImplemented
 
     @classmethod
-    def create(cls, connection, **kwargs):
+    def create(cls, connection, **values):
         raise NotImplemented
 
     @classmethod
-    def update(cls, connection, id_, **kwargs):
+    def update(cls, connection, id_, **values):
         raise NotImplemented
 
     @classmethod
-    def delete(cls, connection, id_, **kwargs):
+    def delete(cls, connection, id_, **_filter):
         raise NotImplemented
 
     @staticmethod

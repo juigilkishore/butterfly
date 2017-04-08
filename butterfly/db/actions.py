@@ -31,11 +31,11 @@ def initialize_tables(config):
     goal_contents = load_file(os.path.join(init_data_dir, constants.INIT_GOAL_JSON))
     default_users = load_file(os.path.join(init_data_dir, constants.INIT_USER_JSON))
 
-    def _create_goal(_goal):
-        goal_reason = _goal.get(REASON_KEY)
+    def _create_goal(goal_i):
+        goal_reason = goal_i.get(REASON_KEY)
         if goal_reason:
-            _goal[REASON_KEY] = lesson_number_mapping.get(goal_reason)
-        goal.Goal.create(connection, **_goal)
+            goal_i[REASON_KEY] = lesson_number_mapping.get(goal_reason)
+        goal.Goal.create(connection, **goal_i)
 
     [lesson.Lesson.create(connection, **_lesson) for _lesson in lesson_contents]
     lesson_number_mapping = dict([(_lesson.get(NUMBER_KEY), _lesson.get(ID_KEY))

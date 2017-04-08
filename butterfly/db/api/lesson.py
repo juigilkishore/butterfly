@@ -37,12 +37,8 @@ class Lesson(Table):
             for lesson in lesson_obj_list:
                 lesson_list.append(cls.row_object_to_dict(lesson))
             lesson_list = deepcopy(lesson_list)
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the lesson table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return lesson_list
 
     @classmethod
@@ -78,12 +74,8 @@ class Lesson(Table):
                           if lesson_id else
                           session.query(schema.Lesson).filter_by(**_filter).one())
             lesson = deepcopy(cls.row_object_to_dict(lesson_obj))
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET) the lesson table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return lesson
 
     @classmethod
@@ -115,12 +107,8 @@ class Lesson(Table):
             for lesson in lesson_obj_list:
                 lesson_list.append(cls.row_object_to_dict(lesson))
             lesson_list = deepcopy(lesson_list)
-            session.commit()
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the lesson table: %s" % e
-            session.rollback()
-        finally:
-            session.close()
         return lesson_list
 
     @classmethod
