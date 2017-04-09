@@ -1,29 +1,15 @@
-import argparse
-import os
-
-import parser as conf_parser
+from butterfly.utils import parser
+from butterfly.api import server
 from butterfly.db import actions as db_actions
-from butterfly.utils import get_dir_of
 
-DB_INIT = "db_init"
-DB_ADD = "db_add"
-DB_DROP = "db_drop"
-DB_UPGRADE = "db_upgrade"
+DB_INIT = "db_init"         # Initialization
+DB_ADD = "db_add"           # Add Database
+DB_DROP = "db_drop"         # Drop Database
+DB_UPGRADE = "db_upgrade"   # Upgrade Database
 RUN = "run"
 
-BUTTERFLY_CONF = "etc/butterfly.conf"
-
-arg_parser = argparse.ArgumentParser(description="Process the user input")
-arg_parser.add_argument('--config', type=str, help="Configuration file")
-arg_parser.add_argument('--action', type=str, help="Performs the action")
-args = arg_parser.parse_args()
-
-ACTION = args.action
-config = args.config
-config_path = os.path.join(get_dir_of(__file__), BUTTERFLY_CONF)
-if config:
-    config_path = config
-config = conf_parser.parser(config_path)
+ACTION = parser.ACTION
+config = parser.config
 
 
 def main():
@@ -34,7 +20,7 @@ def main():
     elif ACTION == DB_ADD:
         db_actions.update_tables(config)
     elif ACTION == RUN:
-        pass
+        server.run(config)
 
 if __name__ == "__main__":
     main()

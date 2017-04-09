@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from butterfly.utils import singleton
+from butterfly.utils.utils import singleton
 
 
 @singleton

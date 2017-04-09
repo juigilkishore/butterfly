@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Text, Integer, DateTime, Boolean, BLOB
 from sqlalchemy import ForeignKey, PrimaryKeyConstraint, UniqueConstraint
 
-from butterfly.utils import get_uuid, get_utc_time
+from butterfly.utils.utils import get_uuid, get_utc_time
 
 Base = declarative_base()
 

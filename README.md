@@ -75,4 +75,8 @@ python butterfly.py --action db_drop --config etc/butterfly.conf
 
 Run service
 -----------
-TODO
+Run the butterfly service
+```commandline
+source butterfly-env/bin/activate
+python butterfly.py --action run --config etc/butterfly.conf
+```

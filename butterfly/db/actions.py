@@ -3,7 +3,7 @@ import os
 from api import lesson, goal, user
 from api.api import get_db_connection
 from api.constants import NUMBER_KEY, ID_KEY, REASON_KEY
-from butterfly.utils import get_dir_of, load_file
+from butterfly.utils.utils import get_dir_of, load_file
 import constants
 from schema import User, Lesson, Goal, ActivityLesson, ActivityGoal
 
