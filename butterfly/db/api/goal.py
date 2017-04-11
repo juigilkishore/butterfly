@@ -134,7 +134,7 @@ class Goal(Table):
                 'week': 2,
                 'count': 3,
                 'reason': 'a97196c9-ead8-4e6f-8b0c-a76fbefaafa0' (or) None,
-                'effect': {
+                'effects': {
                     "calories_burnt": 75,
                     "healthy_calories_consumed": None,
                      "unhealthy_calories_avoided": None

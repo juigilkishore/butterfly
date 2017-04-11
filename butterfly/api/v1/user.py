@@ -9,7 +9,7 @@ from butterfly.db.api.user import User
 def user_get_all_post():
     """Function to
        1. retrieve all existing users (with/without filtering)
-       2. create an user
+       2. create a user
     :return: user details
     """
     method = request.method
@@ -39,9 +39,9 @@ def user_get_all_post():
 @user_api.route('/user/<user_id>', strict_slashes=False, methods=['GET', 'PUT', 'DELETE'])
 def user_get_put_delete(user_id):
     """Function to
-       1. retrieve an user
-       2. edit an user
-       3. delete an user
+       1. retrieve a user
+       2. edit a user
+       3. delete a user
     :param user_id: user ID
     :return: user details
     """
@@ -60,16 +60,16 @@ def user_get_put_delete(user_id):
         else:
             return "Unable to update the user !"
 
-    def delete():
-        username = User.get(connection, user_id).get("name")
-        if User.delete(connection, user_id):
-            return "user ({}: {}) deleted successfully".format(user_id, username)
+    def delete(_user_id):
+        username = User.get(connection, _user_id).get("name")
+        if User.delete(connection, _user_id):
+            return "user ({}: {}) deleted successfully".format(_user_id, username)
         else:
-            return "Unable to delete the user !"
+            return "Unable to delete the user {}!".format(username)
 
     if method == 'GET':
         return get(user_id)
     if method == 'PUT':
         return put(user_id)
     if method == 'DELETE':
-        return delete()
+        return delete(user_id)

@@ -57,14 +57,6 @@ source butterfly-env/bin/activate
 python butterfly.py --action db_init --config etc/butterfly.conf
 ```
 
-Database populate
------------------
-Update the tables with new values
-```commandline
-source butterfly-env/bin/activate
-python butterfly.py --action db_add --config etc/butterfly.conf
-```
-
 Database delete
 ---------------
 Drop all the tables
@@ -80,3 +72,29 @@ Run the butterfly service
 source butterfly-env/bin/activate
 python butterfly.py --action run --config etc/butterfly.conf
 ```
+
+API list
+--------
+##### User APIs
+
+1. *GET*      **/user**               Retrieves all user details
+2. *GET*      **/user/<user_id>**     Retrieves user <user_id>'s details
+3. *POST*     **/user**               Creates a user
+4. *PUT*      **/user/<user_id>**     Edits user <user_id>'s details
+5. *DELETE*   **/user/<user_id>**     Delete user <user_id>
+
+##### Lesson APIs
+
+1. *GET*      **/lesson**                 Retrieves all lesson details
+2. *GET*      **/lesson/<lesson_id>**     Retrieves lesson <lesson_id>'s details
+3. *POST*     **/lesson**                 Creates a lesson
+4. *PUT*      **/lesson/<lesson_id>**     Edits lesson <lesson_id>'s details
+5. *DELETE*   **/lesson/<lesson_id>**     Delete lesson <lesson_id>
+
+##### Goal APIs
+
+1. *GET*      **/goal**               Retrieves all goal details
+2. *GET*      **/goal/<goal_id>**     Retrieves goal <goal_id>'s details
+3. *POST*     **/goal**               Creates a goal
+4. *PUT*      **/goal/<goal_id>**     Edits goal <goal_id>'s details
+5. *DELETE*   **/goal/<goal_id>**     Delete goal <goal_id>
