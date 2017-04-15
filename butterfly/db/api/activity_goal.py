@@ -3,7 +3,7 @@ from copy import deepcopy
 from sqlalchemy.orm.exc import NoResultFound
 
 from api import Table
-from butterfly.utils.utils import get_utc_time
+from butterfly.utils.utils import get_utc_time, datetime_to_string
 from butterfly.db import schema
 from constants import USER_ID_KEY, GOAL_ID_KEY, COUNT_KEY, FREQUENCY_KEY
 from constants import COMPLETED_KEY, COMPLETED_ON_KEY, TIME_FORMAT, LAST_UPDATED_AT_KEY
@@ -42,7 +42,9 @@ class ActivityGoal(Table):
             activity_obj_list = (session.query(schema.ActivityGoal).filter_by(**_filter).all()
                                  if _filter else session.query(schema.ActivityGoal).all())
             for activity in activity_obj_list:
-                activity_list.append(cls.row_object_to_dict(activity))
+                activity_dict = cls.row_object_to_dict(activity)
+                activity_dict[LAST_UPDATED_AT_KEY] = datetime_to_string(activity_dict.get(LAST_UPDATED_AT_KEY))
+                activity_list.append(activity_dict)
             activity_list = deepcopy(activity_list)
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the activity_goal table: %s" % e
@@ -74,6 +76,7 @@ class ActivityGoal(Table):
         try:
             activity_obj = session.query(schema.ActivityGoal).filter_by(**_filter).one()
             activity = cls.row_object_to_dict(activity_obj)
+            activity[LAST_UPDATED_AT_KEY] = datetime_to_string(activity.get(LAST_UPDATED_AT_KEY))
         except Exception as e:
             print "Exception occurred during querying (GET) the activity_goal table: %s" % e
         return activity

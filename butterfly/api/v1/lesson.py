@@ -3,6 +3,7 @@ import json
 
 from butterfly.api.v1 import lesson_api, connection
 from butterfly.db.api.lesson import Lesson
+from constants import URL_KEY, ID_KEY
 
 
 @lesson_api.route('/lesson',  strict_slashes=False,  methods=['GET', 'POST'])
@@ -20,7 +21,7 @@ def lesson_get_all_post():
     def get():
         lesson_details = Lesson.get_all(connection, **values)
         for lesson in lesson_details:
-            lesson["url"] = "{}/{}".format(request.url, lesson.get("id"))
+            lesson[URL_KEY] = "{}/{}".format(request.url, lesson.get(ID_KEY))
         return json.dumps(lesson_details)
 
     def post():

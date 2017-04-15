@@ -2,10 +2,10 @@ from copy import deepcopy
 from sqlalchemy.orm.exc import NoResultFound
 
 from api import Table
-from butterfly.utils.utils import get_utc_time
+from butterfly.utils.utils import get_utc_time, datetime_to_string
 from butterfly.db import schema
 from constants import USER_ID_KEY, LESSON_ID_KEY
-from constants import COMPLETED_KEY, COMPLETED_AT_KEY
+from constants import COMPLETED_KEY, COMPLETED_AT_KEY, OPENED_AT_KEY
 from lesson import Lesson
 from user import User
 
@@ -37,7 +37,10 @@ class ActivityLesson(Table):
             activity_obj_list = (session.query(schema.ActivityLesson).filter_by(**_filter).all()
                                  if _filter else session.query(schema.ActivityLesson).all())
             for activity in activity_obj_list:
-                activity_list.append(cls.row_object_to_dict(activity))
+                activity_dict = cls.row_object_to_dict(activity)
+                activity_dict[OPENED_AT_KEY] = datetime_to_string(activity_dict.get(OPENED_AT_KEY))
+                activity_dict[COMPLETED_AT_KEY] = datetime_to_string(activity_dict.get(COMPLETED_AT_KEY))
+                activity_list.append(activity_dict)
             activity_list = deepcopy(activity_list)
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the activity_lesson table: %s" % e
@@ -68,6 +71,8 @@ class ActivityLesson(Table):
         try:
             activity_obj = session.query(schema.ActivityLesson).filter_by(**_filter).one()
             activity = cls.row_object_to_dict(activity_obj)
+            activity[OPENED_AT_KEY] = datetime_to_string(activity.get(OPENED_AT_KEY))
+            activity[COMPLETED_AT_KEY] = datetime_to_string(activity.get(COMPLETED_AT_KEY))
         except Exception as e:
             print "Exception occurred during querying (GET) the activity_lesson table: %s" % e
         return activity

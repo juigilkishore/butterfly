@@ -3,6 +3,7 @@ import json
 
 from butterfly.api.v1 import goal_api, connection
 from butterfly.db.api.goal import Goal
+from constants import URL_KEY, ID_KEY
 
 
 @goal_api.route('/goal',  strict_slashes=False,  methods=['GET', 'POST'])
@@ -20,7 +21,7 @@ def goal_get_all_post():
     def get():
         goal_details = Goal.get_all(connection, **values)
         for goal in goal_details:
-            goal["url"] = "{}/{}".format(request.url, goal.get("id"))
+            goal[URL_KEY] = "{}/{}".format(request.url, goal.get(ID_KEY))
         return json.dumps(goal_details)
 
     def post():

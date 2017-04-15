@@ -2,8 +2,8 @@ from copy import deepcopy
 
 from api import Table
 from butterfly.db import schema
-from butterfly.utils.utils import get_utc_time
-from constants import NAME_KEY, ID_KEY, LAST_UPDATED_AT_KEY
+from butterfly.utils.utils import get_utc_time, datetime_to_string
+from constants import NAME_KEY, ID_KEY, LAST_UPDATED_AT_KEY, JOINED_AT_KEY
 
 
 class User(Table):
@@ -29,7 +29,10 @@ class User(Table):
             user_obj_list = (session.query(schema.User).filter_by(**_filter).all()
                              if _filter else session.query(schema.User).all())
             for user in user_obj_list:
-                user_list.append(cls.row_object_to_dict(user))
+                user_dict = cls.row_object_to_dict(user)
+                user_dict[JOINED_AT_KEY] = datetime_to_string(user_dict.get(JOINED_AT_KEY))
+                user_dict[LAST_UPDATED_AT_KEY] = datetime_to_string(user_dict.get(LAST_UPDATED_AT_KEY))
+                user_list.append(user_dict)
             user_list = deepcopy(user_list)
         except Exception as e:
             print "Exception occurred during querying (GET ALL) the user table: %s" % e
@@ -62,7 +65,10 @@ class User(Table):
             user_obj = (session.query(schema.User).filter_by(id=user_id).one()
                         if user_id else
                         session.query(schema.User).filter_by(**_filter).one())
-            user = deepcopy(cls.row_object_to_dict(user_obj))
+            user_dict = cls.row_object_to_dict(user_obj)
+            user_dict[JOINED_AT_KEY] = datetime_to_string(user_dict.get(JOINED_AT_KEY))
+            user_dict[LAST_UPDATED_AT_KEY] = datetime_to_string(user_dict.get(LAST_UPDATED_AT_KEY))
+            user = deepcopy(user_dict)
         except Exception as e:
             print "Exception occurred during querying (GET) the user table: %s" % e
         return user

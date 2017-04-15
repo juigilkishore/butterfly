@@ -1,0 +1,5 @@
+URL_KEY = "url"
+ID_KEY = "id"
+LESSON_ID_KEY = "lesson_id"
+GOAL_ID_KEY = "goal_id"
+USER_ID_KEY = "user_id"
