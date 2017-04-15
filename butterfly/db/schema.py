@@ -29,6 +29,7 @@ class Lesson(Base):
     week = Column(Integer, nullable=False)
     number = Column(Integer, nullable=False, unique=True, autoincrement=True)
     is_active = Column(Boolean, nullable=False, default=True)
+    meta_data = Column(Text, nullable=True)
 
 
 class Goal(Base):
