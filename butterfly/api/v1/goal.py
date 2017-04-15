@@ -62,7 +62,6 @@ def goal_get_user_delete(goal_id):
 
     def delete(_goal_id):
         goal_name = Goal.get(connection, _goal_id).get("name")
-        print goal_name
         if Goal.delete(connection, _goal_id):
             return "Goal ({}: {}) deleted successfully".format(_goal_id, goal_name)
         else:

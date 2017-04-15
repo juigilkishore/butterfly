@@ -98,3 +98,19 @@ API list
 3. *POST*     **/goal**               Creates a goal
 4. *PUT*      **/goal/<goal_id>**     Edits goal <goal_id>'s details
 5. *DELETE*   **/goal/<goal_id>**     Delete goal <goal_id>
+
+##### Lesson Activity APIs
+
+1. *GET*      **/user/<user_id>/activity/lesson**                 Retrieves all lesson activity details of <user_id>
+2. *GET*      **/user/<user_id>/activity/lesson/<lesson_id>**     Retrieves lesson activity of <lesson_id>'s details for <user_id>
+3. *POST*     **/user/<user_id>/activity/lesson**                 Creates a lesson activity <lesson_id> for <user_id>
+4. *PUT*      **/user/<user_id>/activity/lesson/<lesson_id>**     Edits lesson activity <lesson_id>'s details for <user_id>
+5. *DELETE*   **/user/<user_id>/activity/lesson/<lesson_id>**     Delete lesson activity <lesson_id>'s details for <user_id>
+
+##### Goal Activity APIs
+
+1. *GET*      **/user/<user_id>/activity/goal**               Retrieves all goal activity details of <user_id>
+2. *GET*      **/user/<user_id>/activity/goal/<goal_id>**     Retrieves goal activity of <goal_id>'s details for <user_id>
+3. *POST*     **/user/<user_id>/activity/goal**               Creates a goal activity <goal_id> for <user_id>
+4. *PUT*      **/user/<user_id>/activity/goal/<goal_id>**     Edits goal activity <goal_id>'s details for <user_id>
+5. *DELETE*   **/user/<user_id>/activity/goal/<goal_id>**     Delete goal activity <goal_id>'s details for <user_id>

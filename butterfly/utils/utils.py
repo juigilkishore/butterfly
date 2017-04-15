@@ -33,3 +33,9 @@ def singleton(my_class):
             instance[my_class] = my_class(*args, **kwargs)
         return instance.get(my_class)
     return my_class_wrapper
+
+
+def datetime_to_string(_datetime):
+    if not _datetime:
+        return
+    return _datetime.strftime("%Y-%m-%d %H:%M:%S")
