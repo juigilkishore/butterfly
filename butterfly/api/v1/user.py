@@ -3,6 +3,7 @@ import json
 
 from butterfly.api.v1 import user_api, connection
 from butterfly.db.api.user import User
+from butterfly.db.api.constants import JOINED_AT_KEY, LAST_UPDATED_AT_KEY, TIME_FORMAT
 
 
 @user_api.route('/user', strict_slashes=False,  methods=['GET', 'POST'])
@@ -21,6 +22,8 @@ def user_get_all_post():
         user_details = User.get_all(connection, **values)
         for user in user_details:
             user["url"] = "{}/{}".format(request.url, user.get("id"))
+            user[JOINED_AT_KEY] = user[JOINED_AT_KEY].strftime(TIME_FORMAT)
+            user[LAST_UPDATED_AT_KEY] = user[LAST_UPDATED_AT_KEY].strftime(TIME_FORMAT)
         return json.dumps(user_details)
 
     def post():
@@ -52,6 +55,8 @@ def user_get_put_delete(user_id):
 
     def get(_user_id):
         user = User.get(connection, _user_id)
+        user[JOINED_AT_KEY] = user[JOINED_AT_KEY].strftime(TIME_FORMAT)
+        user[LAST_UPDATED_AT_KEY] = user[LAST_UPDATED_AT_KEY].strftime(TIME_FORMAT)
         return json.dumps(user)
 
     def put(_user_id):

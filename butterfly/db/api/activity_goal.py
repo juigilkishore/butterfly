@@ -3,10 +3,10 @@ from copy import deepcopy
 from sqlalchemy.orm.exc import NoResultFound
 
 from api import Table
-from butterfly.utils import get_utc_time
+from butterfly.utils.utils import get_utc_time
 from butterfly.db import schema
 from constants import USER_ID_KEY, GOAL_ID_KEY, COUNT_KEY, FREQUENCY_KEY
-from constants import COMPLETED_KEY, COMPLETED_ON_KEY, TIME_FORMAT
+from constants import COMPLETED_KEY, COMPLETED_ON_KEY, TIME_FORMAT, LAST_UPDATED_AT_KEY
 from goal import Goal
 from user import User
 
@@ -208,6 +208,7 @@ class ActivityGoal(Table):
             completed_on = literal_eval(activity_obj.completed_on)
             completed_on[str(activity_obj.frequency)] = get_utc_time().strftime(TIME_FORMAT)
             setattr(activity_obj, COMPLETED_ON_KEY, completed_on)
+            setattr(activity_obj, LAST_UPDATED_AT_KEY, get_utc_time())
 
             if goal_count == activity_obj.frequency:
                 setattr(activity_obj, COMPLETED_KEY, True)

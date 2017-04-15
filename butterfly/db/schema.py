@@ -17,6 +17,8 @@ class User(Base):
     gender = Column(String(10), nullable=False)
     email = Column(String(24), unique=True, nullable=False)
     phone = Column(String(16), nullable=False)
+    joined_at = Column(DateTime, nullable=False, default=get_utc_time)
+    last_updated_at = Column(DateTime, nullable=False, default=get_utc_time)
 
 
 class Lesson(Base):

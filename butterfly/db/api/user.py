@@ -2,7 +2,8 @@ from copy import deepcopy
 
 from api import Table
 from butterfly.db import schema
-from constants import NAME_KEY, ID_KEY
+from butterfly.utils.utils import get_utc_time
+from constants import NAME_KEY, ID_KEY, LAST_UPDATED_AT_KEY
 
 
 class User(Table):
@@ -123,6 +124,7 @@ class User(Table):
                 raise Exception("user ID is required for update operation")
             user_obj = session.query(schema.User).filter_by(id=user_id).one()
             [setattr(user_obj, attr, new_val) for attr, new_val in values.iteritems()]
+            setattr(user_obj, LAST_UPDATED_AT_KEY, get_utc_time())
             session.commit()
         except Exception as e:
             print "Exception occurred during querying (UPDATE) the user table: %s" % e

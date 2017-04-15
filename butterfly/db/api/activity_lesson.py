@@ -2,7 +2,7 @@ from copy import deepcopy
 from sqlalchemy.orm.exc import NoResultFound
 
 from api import Table
-from butterfly.utils import get_utc_time
+from butterfly.utils.utils import get_utc_time
 from butterfly.db import schema
 from constants import USER_ID_KEY, LESSON_ID_KEY
 from constants import COMPLETED_KEY, COMPLETED_AT_KEY
